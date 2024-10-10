@@ -1,0 +1,17 @@
+{
+    "ConnectionType": "INTERNET",
+    "CredentialsArn": "arn:aws:iam::821670482746:role/nSEPIA_demo_api_sqs",
+    "IntegrationMethod": "POST",
+    "IntegrationType": "AWS",
+    "IntegrationUri": "arn:aws:apigateway:ap-south-1:sqs:path/821670482746/ImageFrameQueue.fifo",
+    "PassthroughBehavior": "NEVER",
+    "PayloadFormatVersion": "1.0",
+    "RequestParameters": {
+        "integration.request.header.Content-Type": "'application/x-www-form-urlencoded'"
+    },
+    "RequestTemplates": {
+        "\\$default": "Action=SendMessage&MessageGroupId=$util.urlEncode($context.connectionId)&MessageDeduplicationId=$util.urlEncode($context.requestId)&MessageAttribute.1.Name=connectionId&MessageAttribute.1.Value.StringValue=$util.urlEncode($context.connectionId)&MessageAttribute.1.Value.DataType=String&MessageAttribute.2.Name=requestId&MessageAttribute.2.Value.StringValue=$util.urlEncode($context.requestId)&MessageAttribute.2.Value.DataType=String&MessageAttribute.3.Name=sourceIp&MessageAttribute.3.Value.StringValue=$util.urlEncode($context.identity.sourceIp)&MessageAttribute.3.Value.DataType=String&MessageBody=$util.urlEncode($input.json('$'))"
+    },
+    "TemplateSelectionExpression": "\\$default",
+    "TimeoutInMillis": 29000
+}
